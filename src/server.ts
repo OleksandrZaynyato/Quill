@@ -1,18 +1,22 @@
-import dotenv from 'dotenv';
-import path from 'path';
+import dotenv from 'dotenv/config'
+// import dotenv from 'dotenv';
+// import path from 'path';
+//
+// // Вибираємо відповідний .env залежно від NODE_ENV
+// const envFile = process.env.NODE_ENV === 'production'
+//     ? '.env.production'
+//     : '.env.development';
+//
+// dotenv.config({ path: path.resolve(process.cwd(), envFile) });
+//
+// console.log('Environment:', process.env.NODE_ENV);
+// console.log('Mongo URI:', process.env.MONGO_URI);
+
 import {connectDB} from "./config/DB.ts";
 import app from "./app.ts";
 
 
-// Вибираємо відповідний .env залежно від NODE_ENV
-const envFile = process.env.NODE_ENV === 'production'
-    ? '.env.production'
-    : '.env.development';
 
-dotenv.config({ path: path.resolve(process.cwd(), envFile) });
-
-console.log('Environment:', process.env.NODE_ENV);
-console.log('Mongo URI:', process.env.MONGO_URI);
 
 await connectDB();
 
