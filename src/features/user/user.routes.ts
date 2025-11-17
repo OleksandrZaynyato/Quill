@@ -1,14 +1,14 @@
 import {Router} from "express";
-import {registerSchema} from "./validators/registerValidator.ts";
-import {register} from "./endpoints/register.ts";
-import {validate} from "../../middlewares/validate.ts";
+
 import asyncHendler from "../../middlewares/asyncHendler.ts";
-import {loginSchema} from "./validators/loginValidator.ts";
-import {login} from "./endpoints/login.ts";
+import {validate} from "../../middlewares/validate.ts";
+import {register, login, update} from "./endpoints/index.ts";
+import {registerSchema, loginSchema, updateSchema} from "./validators/index.ts";
 
 const userRoutes = Router();
 
 userRoutes.post("/register", validate(registerSchema), asyncHendler(register));
 userRoutes.post("/login", validate(loginSchema), asyncHendler(login));
+userRoutes.put("/update/:id", validate(updateSchema), asyncHendler(update));
 
 export default userRoutes;
