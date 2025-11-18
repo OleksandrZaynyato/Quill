@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import type {BookType} from "./book.types.ts";
 
-const book = new mongoose.Schema({
-    title: String,
+const book = new mongoose.Schema<BookType>({
+    title: { type: String, required: true },
     authors: [String],
     publisher: String,
     publishedDate: String,
@@ -28,4 +29,4 @@ const book = new mongoose.Schema({
     collection: "books"
 });
 
-export default mongoose.model("Book", book);
+export default mongoose.model<BookType>("Book", book);
