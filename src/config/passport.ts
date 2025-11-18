@@ -1,6 +1,6 @@
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { PassportStatic } from 'passport';
-import User from '../features/user/user.model';
+import User from '../features/auth/user.model';
 
 export default (passport: PassportStatic) => {
     passport.use(

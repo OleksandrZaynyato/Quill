@@ -1,0 +1,20 @@
+"/books/{id}":
+  get:
+    tags:
+      - Book
+    summary: Get book details by ID
+    description: Retrieve detailed information about a book using its unique identifier.
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the book
+    responses:
+      '200':
+        description: Successful response with book details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'

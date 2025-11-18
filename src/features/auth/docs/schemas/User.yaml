@@ -1,0 +1,44 @@
+User:
+  type: object
+  properties:
+    username:
+      type: string
+      description: Username of the user
+    email:
+      type: string
+      format: email
+      description: User email (must be unique)
+    passwordHash:
+      type: string
+      description: Hashed password
+    toReadList:
+      type: array
+      items:
+        type: string
+        description: MongoDB ObjectId of books
+      description: List of books user wants to read
+    whitelist:
+      type: array
+      items:
+        type: string
+        description: MongoDB ObjectId of books
+      description: Whitelisted books for the user
+    role:
+      type: string
+      enum:
+        - user
+        - admin
+      default: user
+      description: Role of the user
+    createdAt:
+      type: string
+      format: date-time
+      description: Account creation date
+    updatedAt:
+      type: string
+      format: date-time
+      description: Last update date
+  required:
+    - username
+    - email
+    - passwordHash

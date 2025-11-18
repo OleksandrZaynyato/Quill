@@ -1,0 +1,37 @@
+"/books/search":
+  get:
+    summary: Search books
+    tags:
+      - Book
+    description: |
+      Search books by searchValue and/or category.
+      If no query params are provided (except page), returns all books.
+    parameters:
+      - name: searchValue
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Text to search in book title or description
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Category to filter books
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+        description: Page number for pagination
+    responses:
+      200:
+        description: List of books matching search criteria
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Book'

@@ -1,0 +1,71 @@
+Book:
+  type: object
+  properties:
+    title:
+      type: string
+      description: The book title
+    authors:
+      type: array
+      items:
+        type: string
+      description: List of authors
+    publisher:
+      type: string
+      description: Publisher name
+    publishedDate:
+      type: string
+      description: Date of publication
+    description:
+      type: string
+      description: Book description
+    pageCount:
+      type: integer
+      description: Number of pages
+    categories:
+      type: array
+      items:
+        type: string
+      description: Categories or genres
+    averageRating:
+      type: number
+      format: float
+      description: Average rating
+    ratingsCount:
+      type: integer
+      description: Number of ratings
+    saleInfo:
+      type: object
+      properties:
+        country:
+          type: string
+        saleability:
+          type: string
+        isEbook:
+          type: boolean
+      description: Sale information
+    links:
+      type: object
+      properties:
+        previewLink:
+          type: string
+          format: uri
+        infoLink:
+          type: string
+          format: uri
+        canonicalVolumeLink:
+          type: string
+          format: uri
+        smallThumbnail:
+          type: string
+          format: uri
+        thumbnail:
+          type: string
+          format: uri
+      description: Links to the book
+    embedding:
+      type: array
+      items:
+        type: number
+      description: Vector embedding for search
+  required:
+    - title
