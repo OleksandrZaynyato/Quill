@@ -4,7 +4,6 @@ import {validate} from "../../middlewares/validate.ts";
 import asyncHandler from "../../middlewares/asyncHandler.ts";
 import {loginSchema} from "./validators/loginValidator.ts";
 import {register, login, logout , refresh} from "./endpoints/index.ts";
-// import passport from "passport";
 import passport from "../../middlewares/passport.ts"
 
 const authRoutes = Router();
