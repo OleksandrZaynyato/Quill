@@ -1,5 +1,5 @@
 import type {Request, Response} from "express";
-import type {HydratedDocument} from "mongoose";
+import mongoose, {HydratedDocument} from "mongoose";
 import Book from "../../book/book.model.ts";
 import type {BookType} from "../book.types.ts";
 import {getPagination, sendPaginated} from "../../../utils/pagination.ts";
@@ -9,6 +9,10 @@ export const searchBooks = async (req: Request, res: Response) => {
     const {page, limit, skip} = getPagination(req.query.page);
     const searchValue = req.query.searchValue as string | undefined;
     const category = req.query.category as string | undefined;
+    let whitelist: string[] = [];
+
+    if (req.user) whitelist = req.user.whitelist ?? [];
+    if (req.body?.whitelist) whitelist = req.body.whitelist;
 
     if (!searchValue && !category) {
         const docs = await Book.find({}, {embedding: 0}).skip(skip).limit(limit);
@@ -20,12 +24,12 @@ export const searchBooks = async (req: Request, res: Response) => {
     let keywordResults: HydratedDocument<BookType>[] = [];
 
     // Embedding search by description
-    if (searchValue) vectorResults = await vectorSearch(searchValue);
+    if (searchValue) vectorResults = await vectorSearch(searchValue, whitelist);
 
     // Keyword search by title
     if (searchValue) {
         keywordResults = await Book.find({
-            title: { $regex: searchValue, $options: "i" }
+            title: {$regex: searchValue, $options: "i"}
         }).limit(50).select("-embedding");
     }
 
@@ -34,8 +38,7 @@ export const searchBooks = async (req: Request, res: Response) => {
 
     if (vectorResults.length && keywordResults.length) {
         results = margeResults(vectorResults, keywordResults);
-    }
-    else if (vectorResults.length) results = vectorResults;
+    } else if (vectorResults.length) results = vectorResults;
     else results = keywordResults;
 
     if (category && vectorResults.length) {
@@ -50,9 +53,14 @@ export const searchBooks = async (req: Request, res: Response) => {
 };
 
 
-export const vectorSearch = async (stringToSearch: string, numCandidates: number = 1000, limit:number = 50): Promise<HydratedDocument<BookType>[]> => {
+export const vectorSearch = async (
+    stringToSearch: string,
+    whitelist: string[] = [],
+    numCandidates: number = 1000,
+    limit: number = 50
+): Promise<HydratedDocument<BookType>[]> => {
     const queryVector = await embed(stringToSearch);
-    console.log("queryVector length:", queryVector?.length);
+    // console.log("queryVector length:", queryVector?.length);
 
     const vectorResults = await Book.aggregate([
         {
@@ -64,7 +72,12 @@ export const vectorSearch = async (stringToSearch: string, numCandidates: number
                 limit: limit
             }
         },
-        {$project: {embedding: 0}} // exclude embedding from results
+        {$project: {embedding: 0}},
+        {
+            $match: {
+                _id: {$nin: whitelist.map(id => new mongoose.Types.ObjectId(id))}
+            }
+        }
     ]) as HydratedDocument<BookType>[];
 
     return vectorResults;

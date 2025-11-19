@@ -1,4 +1,5 @@
-import dotenv from 'dotenv/config'
+import "./loadEnv.ts"
+
 // import dotenv from 'dotenv';
 // import path from 'path';
 //
@@ -14,9 +15,6 @@ import dotenv from 'dotenv/config'
 
 import {connectDB} from "./config/DB.ts";
 import app from "./app.ts";
-
-
-
 
 await connectDB();
 
