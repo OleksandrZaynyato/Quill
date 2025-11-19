@@ -3,12 +3,11 @@ import User from "../user.model.ts";
 
 export const updateProfile = async (req: Request, res: Response) => {
     try {
-        const { username, toReadList } = req.body;
+        const { username } = req.body;
         const userId = req.params.id;
 
         const updateData: any = {};
         if (username) updateData.username = username;
-        if (toReadList) updateData.toReadList = toReadList;
 
         const user = await User.findByIdAndUpdate(userId, updateData, { new: true })
             .select("-passwordHash -refreshToken");

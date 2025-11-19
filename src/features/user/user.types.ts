@@ -1,5 +1,5 @@
 interface UserTypes {
-    id: string;
+    _id: string;
     username: string;
     email: string;
     password: string;

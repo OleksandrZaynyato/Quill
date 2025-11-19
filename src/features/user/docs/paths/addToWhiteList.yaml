@@ -1,0 +1,36 @@
+"/user/{id}/whitelist":
+  post:
+    summary: Add a book to the user's whitelist
+    description: Adds a book to whitelist using $addToSet. User must be authenticated. Admins may modify any user; normal users may only modify their own account.
+    security:
+      - cookieAuth: []
+    tags:
+      - User
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: User ID
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              bookId:
+                type: string
+            required:
+              - bookId
+    responses:
+      '200':
+        description: Book added to whitelist
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string

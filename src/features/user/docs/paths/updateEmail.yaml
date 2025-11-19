@@ -1,8 +1,15 @@
-"/users/{id}/email":
-  put:
+/user/{id}/email:
+  patch:
     summary: Update user email
+    description: >
+      Updates the email address of a user.  
+      Requires authentication.  
+      - Regular users may update **only their own email**.  
+      - Admins may update any user's email.
     tags:
       - User
+    security:
+      - cookieAuth: []
     parameters:
       - name: id
         in: path
@@ -16,12 +23,12 @@
         application/json:
           schema:
             type: object
+            required:
+              - email
             properties:
               email:
                 type: string
                 format: email
-            required:
-              - email
             example:
               email: newemail@example.com
     responses:
@@ -37,6 +44,26 @@
                   example: Email updated
                 user:
                   $ref: "../schemas/User.yaml"
+      401:
+        description: Unauthorized — user not logged in
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Unauthorized
+      403:
+        description: Forbidden — user cannot modify another user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Forbidden, you cannot update this user
       409:
         description: Email already in use
         content:

@@ -1,0 +1,29 @@
+"/user/{id}/toReadList/{bookId}":
+  delete:
+    summary: Remove a book from the user's toReadList
+    description: Removes a book from toReadList via $pull. Requires authentication.
+    security:
+      - cookieAuth: []
+    tags:
+      - User
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bookId
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Book removed from toReadList
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string

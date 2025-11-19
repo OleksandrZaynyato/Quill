@@ -1,0 +1,29 @@
+"/user/{id}/whitelist/{bookId}":
+  delete:
+    summary: Remove a book from the user's whitelist
+    description: Removes a book from whitelist using $pull. Requires authentication.
+    security:
+      - cookieAuth: []
+    tags:
+      - User
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: bookId
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: Book removed from whitelist
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string

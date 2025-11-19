@@ -1,0 +1,61 @@
+"/user":
+  get:
+    summary: Get all users (paginated)
+    tags:
+      - User
+    description: Returns a paginated list of all users. **Admin only.**
+    parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 1
+        description: Page number
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+        description: Number of users per page
+    security:
+      - cookieAuth: []
+    responses:
+      200:
+        description: Paginated list of users
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                total:
+                  type: integer
+                page:
+                  type: integer
+                limit:
+                  type: integer
+                data:
+                  type: array
+                  items:
+                    $ref: "../schemas/User.yaml"
+      401:
+        description: Unauthorized (not logged in)
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Unauthorized
+      403:
+        description: Forbidden (not admin)
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Forbidden

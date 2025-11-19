@@ -1,12 +1,20 @@
-"/users/{id}/profile":
-  put:
-    summary: Update user profile
+/user/{id}/email:
+  patch:
+    summary: Update user email
+    description: >
+      Updates the email address of a user.  
+      Requires authentication.  
+      - Regular users may update only their own email.  
+      - Admins may update any user's email.
     tags:
       - User
+    security:
+      - cookieAuth: []
     parameters:
       - name: id
         in: path
         required: true
+        description: User ObjectId
         schema:
           type: string
     requestBody:
@@ -15,19 +23,17 @@
         application/json:
           schema:
             type: object
+            required:
+              - email
             properties:
-              username:
+              email:
                 type: string
-              toReadList:
-                type: array
-                items:
-                  type: string
+                format: email
             example:
-              username: newusername
-              toReadList: ["641a5b6c9f1b2c3d4e5f6789"]
+              email: newemail@example.com
     responses:
       200:
-        description: Profile updated successfully
+        description: Email updated successfully
         content:
           application/json:
             schema:
@@ -35,6 +41,36 @@
               properties:
                 message:
                   type: string
-                  example: Profile updated
+                  example: Email updated
                 user:
                   $ref: "../schemas/User.yaml"
+      401:
+        description: Unauthorized — user not logged in
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Unauthorized
+      403:
+        description: Forbidden — user cannot modify another user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Forbidden, you cannot update this user
+      409:
+        description: Email already in use
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Email already in use

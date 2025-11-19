@@ -1,8 +1,15 @@
-"/users/{id}":
+/users/{id}:
   delete:
-    summary: Delete user
+    summary: Delete a user
+    description: >
+      Deletes the user with the provided ID.  
+      Requires authentication.  
+      - **Admins** may delete any user.  
+      - **Regular users** may only delete their own account.
     tags:
       - User
+    security:
+      - cookieAuth: []
     parameters:
       - name: id
         in: path
@@ -26,6 +33,26 @@
                 message:
                   type: string
                   example: User deleted successfully
+      401:
+        description: Unauthorized — user is not logged in
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Unauthorized
+      403:
+        description: Forbidden — not allowed to delete this user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Forbidden, you cannot delete this user
       404:
         description: User not found
         content:

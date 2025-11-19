@@ -21,22 +21,14 @@ const passwordSchema = yup.object({
     }),
 });
 
-const whitelistSchema = yup.object({
-    body: yup.object({
-        whitelist: yup.array().of(yup.string()).required("Whitelist must be an array"),
-    }),
-});
-
 const profileSchema = yup.object({
     body: yup.object({
         username: yup.string().optional(),
-        toReadList: yup.array().of(yup.string()).optional(),
     }),
 });
 
 // Export combined middlewares
 export const validateUpdateEmail = validate(idSchema.concat(emailSchema));
 export const validateUpdatePassword = validate(idSchema.concat(passwordSchema));
-export const validateUpdateWhitelist = validate(idSchema.concat(whitelistSchema));
 export const validateUpdateProfile = validate(idSchema.concat(profileSchema));
 export const validateDeleteUser = validate(idSchema);

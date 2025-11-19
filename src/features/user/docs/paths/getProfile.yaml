@@ -1,0 +1,46 @@
+"/user/profile":
+  get:
+    summary: Get current user profile
+    tags:
+      - User
+    description: Returns the profile of the logged-in user.
+    security:
+      - cookieAuth: []
+    responses:
+      200:
+        description: User profile
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                username:
+                  type: string
+                toReadList:
+                  type: array
+                  items:
+                    type: string
+                whitelist:
+                  type: array
+                  items:
+                    type: string
+                role:
+                  type: string
+                  enum:
+                    - user
+                    - admin
+      401:
+        description: Unauthorized (must be logged in)
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Unauthorized

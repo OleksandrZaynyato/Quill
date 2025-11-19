@@ -3,9 +3,12 @@ import "express";
 declare global {
     namespace Express {
         interface User {
-            id: string;
+            _id: string;
             role: "user" | "admin";
             email: string;
+            username?: string;
+            toReadList?: string[];
+            whitelist?: string[];
         }
     }
 }
