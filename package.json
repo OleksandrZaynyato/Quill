@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/server.ts",
-    "start": "node dist/server.js",
-    "dev1": "cross-env NODE_ENV=development ts-node src/server.ts",
-    "start1": "cross-env NODE_ENV=production node dist/server.js",
+    "dev": "tsx src/server",
+    "start": "node dist/server",
+    "dev1": "cross-env NODE_ENV=development ts-node src/server",
+    "start1": "cross-env NODE_ENV=production node dist/server",
     "build": "tsc"
   },
   "author": "",

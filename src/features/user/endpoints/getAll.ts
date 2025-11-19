@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import User from "../user.model.ts"
-import {getPagination, sendPaginated} from "../../../utils/pagination.ts";
+import User from "../user.model"
+import {getPagination, sendPaginated} from "../../../utils/pagination";
 
 export const getAll = async (req: Request, res: Response) => {
     const pageQuery = req.query.page ? Number(req.query.page) : undefined;

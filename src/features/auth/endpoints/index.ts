@@ -1,4 +1,4 @@
-export { login } from "./login.ts";
-export { register } from "./register.ts";
-export { logout } from "./logout.ts";
-export { refresh } from "./refresh.ts";
+export { login } from "./login";
+export { register } from "./register";
+export { logout } from "./logout";
+export { refresh } from "./refresh";

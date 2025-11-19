@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import User from "../../user/user.model.ts";
+import User from "../../user/user.model";
 
 export const refresh = async (req: Request, res: Response) => {
     const refreshToken = req.cookies.refreshToken;

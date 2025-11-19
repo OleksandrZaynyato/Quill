@@ -1,4 +1,4 @@
-import "./loadEnv.ts"
+import "./loadEnv"
 
 // import dotenv from 'dotenv';
 // import path from 'path';
@@ -13,8 +13,8 @@ import "./loadEnv.ts"
 // console.log('Environment:', process.env.NODE_ENV);
 // console.log('Mongo URI:', process.env.MONGO_URI);
 
-import {connectDB} from "./config/DB.ts";
-import app from "./app.ts";
+import {connectDB} from "./config/DB";
+import app from "./app";
 
 await connectDB();
 

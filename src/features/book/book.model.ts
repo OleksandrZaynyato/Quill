@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import type {BookType} from "./book.types.ts";
+import type {BookType} from "./book.types";
 
 const book = new mongoose.Schema<BookType>({
     title: { type: String, required: true },

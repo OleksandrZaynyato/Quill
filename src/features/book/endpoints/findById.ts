@@ -1,5 +1,5 @@
 import type {Request, Response} from 'express';
-import Book from '../book.model.ts';
+import Book from '../book.model';
 
 export const getById = async (req: Request, res: Response) => {
     const {id} = req.params;

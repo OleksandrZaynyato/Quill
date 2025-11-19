@@ -1,11 +1,11 @@
 import {Router} from "express";
-import passport from "../../middlewares/passport.ts";
-import {validate} from "../../middlewares/validate.ts";
-import {searchSchema} from "./validators/search.validator.ts";
-import asyncHandler from "../../middlewares/asyncHandler.ts";
-import {searchBooks} from "./endpoints/search.ts";
-import {getById} from "./endpoints/findById.ts";
-import {idSchema} from "../../validators/common/id.validator.ts";
+import passport from "../../middlewares/passport";
+import {validate} from "../../middlewares/validate";
+import {searchSchema} from "./validators/search.validator";
+import asyncHandler from "../../middlewares/asyncHandler";
+import {searchBooks} from "./endpoints/search";
+import {getById} from "./endpoints/findById";
+import {idSchema} from "../../validators/common/id.validator";
 
 const bookRoutes = Router();
 bookRoutes.get('/search',

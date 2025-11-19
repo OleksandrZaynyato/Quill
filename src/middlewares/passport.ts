@@ -1,6 +1,6 @@
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import passport from "passport";
-import User from "../features/user/user.model.ts";
+import User from "../features/user/user.model";
 
 export const initPassport = () => {
     passport.use(
