@@ -1,0 +1,49 @@
+"/users/{id}/email":
+  put:
+    summary: Update user email
+    tags:
+      - User
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: User ObjectId
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+            required:
+              - email
+            example:
+              email: newemail@example.com
+    responses:
+      200:
+        description: Email updated successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Email updated
+                user:
+                  $ref: "../schemas/User.yaml"
+      409:
+        description: Email already in use
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Email already in use

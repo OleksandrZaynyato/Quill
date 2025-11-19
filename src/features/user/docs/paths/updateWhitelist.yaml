@@ -1,0 +1,50 @@
+"/users/{id}/whitelist":
+  put:
+    summary: Update user whitelist
+    tags:
+      - User
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              whitelist:
+                type: array
+                items:
+                  type: string
+                  description: Book ObjectId
+            required:
+              - whitelist
+            example:
+              whitelist: ["641a5b6c9f1b2c3d4e5f6789"]
+    responses:
+      200:
+        description: Whitelist updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Whitelist updated
+                user:
+                  $ref: "../schemas/User.yaml"
+      400:
+        description: Invalid IDs in whitelist
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Invalid IDs in whitelist

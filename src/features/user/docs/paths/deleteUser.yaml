@@ -1,0 +1,38 @@
+"/users/{id}":
+  delete:
+    summary: Delete user
+    tags:
+      - User
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: User ObjectId
+    responses:
+      200:
+        description: User deleted successfully
+        headers:
+          Set-Cookie:
+            description: Clears accessToken and refreshToken cookies
+            schema:
+              type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: User deleted successfully
+      404:
+        description: User not found
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: User not found
