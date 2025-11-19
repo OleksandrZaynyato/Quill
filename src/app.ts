@@ -7,6 +7,7 @@ import {swaggerDocs} from "./swagger.ts";
 import cookieParser from "cookie-parser";
 import passport from "./middlewares/passport.ts";
 import { initPassport } from "./middlewares/passport.ts";
+import userRoutes from "./features/user/user.routes.ts";
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(passport.initialize());
 
 app.use("/api/books", bookRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 
 app.use((err: any, req: Request, res:Response, next: NextFunction) => {
     console.error("🔥 ERROR:", err);

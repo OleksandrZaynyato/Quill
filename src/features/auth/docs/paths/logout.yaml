@@ -1,0 +1,22 @@
+"/auth/logout":
+  post:
+    summary: Logout user
+    tags:
+      - Auth
+    description: Clears `accessToken` and `refreshToken` cookies, invalidating the session.
+    responses:
+      200:
+        description: Logged out successfully
+        headers:
+          Set-Cookie:
+            description: Cookies cleared
+            schema:
+              type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Logged out

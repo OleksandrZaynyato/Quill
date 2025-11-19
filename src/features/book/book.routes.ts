@@ -1,13 +1,13 @@
 import {Router} from "express";
 import {validate} from "../../middlewares/validate.ts";
 import {searchSchema} from "./validators/search.validator.ts";
-import asyncHendler from "../../middlewares/asyncHendler.ts";
+import asyncHandler from "../../middlewares/asyncHandler.ts";
 import {searchBooks} from "./endpoints/search.ts";
 import {getById} from "./endpoints/findById.ts";
-import {idSchema} from "./validators/id.validator.ts";
+import {idSchema} from "../../validators/common/id.validator.ts";
 
 const bookRoutes = Router();
-bookRoutes.get('/search', validate(searchSchema),  asyncHendler(searchBooks));
-bookRoutes.get('/:id', validate(idSchema), asyncHendler(getById));
+bookRoutes.get('/search', validate(searchSchema),  asyncHandler(searchBooks));
+bookRoutes.get('/:id', validate(idSchema), asyncHandler(getById));
 
 export default bookRoutes;

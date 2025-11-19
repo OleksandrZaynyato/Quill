@@ -1,6 +1,6 @@
 import type {Request, Response} from 'express';
 import bcrypt from "bcryptjs";
-import User from '../user.model.ts';
+import User from '../../user/user.model.ts';
 import jwt from 'jsonwebtoken';
 
 export const login = async (req: Request, res: Response) => {
@@ -13,13 +13,13 @@ export const login = async (req: Request, res: Response) => {
     if (!isMatchPassword) return res.status(401).json({message: 'Invalid email or password'});
 
     const accessToken = jwt.sign(
-        { userId: user._id },
+        { userId: user._id, role: user.role },
         process.env.ACCESS_SECRET!,
         { expiresIn: "15m" }
     );
 
     const refreshToken = jwt.sign(
-        { userId: user._id },
+        { userId: user._id, role: user.role },
         process.env.REFRESH_SECRET!,
         { expiresIn: "30d" }
     );

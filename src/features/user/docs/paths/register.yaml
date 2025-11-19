@@ -1,9 +1,9 @@
-"/auth/login":
+"/auth/register":
   post:
-    summary: Login user
+    summary: Register a new user
     tags:
       - Auth
-    description: Logs in a user and sets `accessToken` and `refreshToken` cookies. Returns user info.
+    description: Creates a new user account and returns the created user object.
     requestBody:
       required: true
       content:
@@ -14,23 +14,25 @@
               email:
                 type: string
                 format: email
+                description: User email
+              username:
+                type: string
+                description: Username
               password:
                 type: string
                 format: password
+                description: User password
             required:
               - email
+              - username
               - password
             example:
-              email: user@example.com
+              email: newuser@example.com
+              username: newuser
               password: mypassword123
     responses:
-      200:
-        description: Login successful
-        headers:
-          Set-Cookie:
-            description: Access and refresh tokens
-            schema:
-              type: string
+      201:
+        description: User registered successfully
         content:
           application/json:
             schema:
@@ -38,12 +40,13 @@
               properties:
                 message:
                   type: string
-                  example: Login successful
+                  example: User registered successfully
                 user:
                   type: object
                   properties:
-                    id:
+                    _id:
                       type: string
+                      description: User ObjectId
                     email:
                       type: string
                       format: email
@@ -53,12 +56,20 @@
                       type: array
                       items:
                         type: string
+                        description: Book ObjectId
                     whitelist:
                       type: array
                       items:
                         type: string
+                        description: Book ObjectId
                     role:
                       type: string
                       enum:
                         - user
                         - admin
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time

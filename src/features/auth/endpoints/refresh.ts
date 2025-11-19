@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import User from "../user.model.ts";
+import User from "../../user/user.model.ts";
 
 export const refresh = async (req: Request, res: Response) => {
     const refreshToken = req.cookies.refreshToken;
@@ -13,7 +13,7 @@ export const refresh = async (req: Request, res: Response) => {
         const payload = jwt.verify(refreshToken, process.env.REFRESH_SECRET!) as any;
 
         const newAccessToken = jwt.sign(
-            { userId: payload.userId },
+            { userId: payload.userId, role: user.role },
             process.env.ACCESS_SECRET!,
             { expiresIn: "15m" }
         );

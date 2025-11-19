@@ -1,0 +1,42 @@
+"/auth/refresh":
+  post:
+    summary: Refresh access token
+    tags:
+      - Auth
+    description: Uses `refreshToken` cookie to issue a new access token.
+    responses:
+      200:
+        description: Token refreshed successfully
+        headers:
+          Set-Cookie:
+            description: New access token cookie
+            schema:
+              type: string
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Token refreshed
+      401:
+        description: Missing refresh token
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Missing refresh token
+      403:
+        description: Invalid or expired refresh token
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Invalid refresh token

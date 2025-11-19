@@ -1,9 +1,9 @@
 "/auth/login":
   post:
-    summary: Login user
+    summary: User login
     tags:
       - Auth
-    description: Logs in a user and sets `accessToken` and `refreshToken` cookies. Returns user info.
+    description: Logs in a user and returns a JWT token in the response body and cookie.
     requestBody:
       required: true
       content:
@@ -14,9 +14,11 @@
               email:
                 type: string
                 format: email
+                description: User email
               password:
                 type: string
                 format: password
+                description: User password
             required:
               - email
               - password
@@ -26,11 +28,6 @@
     responses:
       200:
         description: Login successful
-        headers:
-          Set-Cookie:
-            description: Access and refresh tokens
-            schema:
-              type: string
         content:
           application/json:
             schema:
@@ -39,11 +36,15 @@
                 message:
                   type: string
                   example: Login successful
+                token:
+                  type: string
+                  description: JWT token valid for 1 hour
                 user:
                   type: object
                   properties:
                     id:
                       type: string
+                      description: User ObjectId
                     email:
                       type: string
                       format: email
@@ -53,10 +54,12 @@
                       type: array
                       items:
                         type: string
+                        description: Book ObjectId
                     whitelist:
                       type: array
                       items:
                         type: string
+                        description: Book ObjectId
                     role:
                       type: string
                       enum:

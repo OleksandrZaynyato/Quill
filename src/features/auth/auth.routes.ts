@@ -1,7 +1,7 @@
 import {Router} from "express";
 import {registerSchema} from "./validators/registerValidator.ts";
 import {validate} from "../../middlewares/validate.ts";
-import asyncHendler from "../../middlewares/asyncHendler.ts";
+import asyncHandler from "../../middlewares/asyncHandler.ts";
 import {loginSchema} from "./validators/loginValidator.ts";
 import {register, login, logout , refresh} from "./endpoints/index.ts";
 // import passport from "passport";
@@ -9,10 +9,10 @@ import passport from "../../middlewares/passport.ts"
 
 const authRoutes = Router();
 
-authRoutes.post("/register", validate(registerSchema), asyncHendler(register));
-authRoutes.post("/login", validate(loginSchema), asyncHendler(login));
-authRoutes.post("/logout", asyncHendler(logout));
-authRoutes.get("/refresh", asyncHendler(refresh));
+authRoutes.post("/register", validate(registerSchema), asyncHandler(register));
+authRoutes.post("/login", validate(loginSchema), asyncHandler(login));
+authRoutes.post("/logout", asyncHandler(logout));
+authRoutes.post("/refresh", asyncHandler(refresh));
 
 authRoutes.get(
     "/me",

@@ -11,7 +11,8 @@ const userModel = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 }, {
-    collection: "users"
+    collection: "users",
+    timestamps: true
 })
 
 export default mongoose.model("User", userModel);

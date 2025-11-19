@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import type { Request, Response } from 'express';
-import User from '../user.model.ts';
+import User from '../../user/user.model.ts';
 
 interface RegisterBody {
     email: string;
