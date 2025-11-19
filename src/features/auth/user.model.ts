@@ -7,6 +7,7 @@ const userModel = new mongoose.Schema({
     toReadList: { type: [mongoose.Schema.Types.ObjectId], ref: "Book", default: [] },
     whitelist: { type: [mongoose.Schema.Types.ObjectId], ref: "Book", default: [] },
     role: { type: String, enum: ["user", "admin"], default: "user" },
+    refreshToken: {type: String},
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 }, {

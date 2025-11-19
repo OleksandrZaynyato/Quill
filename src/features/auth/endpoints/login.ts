@@ -12,23 +12,35 @@ export const login = async (req: Request, res: Response) => {
     const isMatchPassword = await bcrypt.compare(password, user.passwordHash);
     if (!isMatchPassword) return res.status(401).json({message: 'Invalid email or password'});
 
-    const token = jwt.sign(
-        {userId: user._id, role: user.role},
-        process.env.JWT_SECRET as string,
-        {expiresIn: '1h'}
+    const accessToken = jwt.sign(
+        { userId: user._id },
+        process.env.ACCESS_SECRET!,
+        { expiresIn: "15m" }
     );
 
-    res.cookie("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 3600000 // 1 hour
-        }
-    )
+    const refreshToken = jwt.sign(
+        { userId: user._id },
+        process.env.REFRESH_SECRET!,
+        { expiresIn: "30d" }
+    );
+
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: true,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: true,
+    });
 
     res.status(200).json({
         message: 'Login successful',
-        token,
         user: {
             id: user._id,
             email: user.email,

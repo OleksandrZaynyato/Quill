@@ -7,7 +7,7 @@ export default (passport: PassportStatic) => {
         new JwtStrategy(
             {
                 jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-                secretOrKey: process.env.JWT_SECRET as string,
+                secretOrKey: process.env.ACCESS_SECRET as string,
             },
             async (jwtPayload, done) => {
                 try {
