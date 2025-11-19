@@ -13,7 +13,7 @@ export function authOwnerOrAdmin(getOwnerId: (req: Request) => string) {
 
         const ownerId = getOwnerId(req);
 
-        if (user.id !== ownerId) {
+        if (user._id !== ownerId) {
             return res.status(403).json({ message: "Forbidden: not your resource" });
         }
 
