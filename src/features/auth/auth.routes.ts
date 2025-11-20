@@ -1,10 +1,10 @@
 import {Router} from "express";
-import {registerSchema} from "./validators/registerValidator.ts";
-import {validate} from "../../middlewares/validate.ts";
-import asyncHandler from "../../middlewares/asyncHandler.ts";
-import {loginSchema} from "./validators/loginValidator.ts";
-import {register, login, logout , refresh} from "./endpoints/index.ts";
-import passport from "../../middlewares/passport.ts"
+import {registerSchema} from "./validators/registerValidator.js";
+import {validate} from "../../middlewares/validate.js";
+import asyncHandler from "../../middlewares/asyncHandler.js";
+import {loginSchema} from "./validators/loginValidator.js";
+import {register, login, logout , refresh} from "./endpoints/index.js";
+import passport from "../../middlewares/passport.js";
 
 const authRoutes = Router();
 

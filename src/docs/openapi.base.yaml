@@ -4,14 +4,14 @@ info:
   version: 1.0.0
 
 servers:
-  - url: http://{environment}/api
+  - url: https://{environment}/api
     description: API server
     variables:
       environment:
         default: localhost:5000
         enum:
           - localhost:5000
-          - mydomain.com
+          - https://quill-zb7e.onrender.com
 
 
 paths: {}        # will be merged

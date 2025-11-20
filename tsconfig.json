@@ -2,16 +2,17 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "Node",
     "outDir": "dist",
-    "rootDir": "./",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "typeRoots": ["./types", "./node_modules/@types"],
-    "types": ["node", "express"]
+    "types": ["node", "express"],
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": false
   }
 }

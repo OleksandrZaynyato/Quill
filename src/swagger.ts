@@ -29,11 +29,18 @@ const loadYamlRecursive = (dir: string) => {
 };
 
 export const swaggerDocs = (app: Express) => {
-    const basePath = join(__dirname, "docs", "openapi.base.yaml");
+    // const basePath = join(__dirname, "docs", "openapi.base.yaml");
+    // const baseFile = fs.readFileSync(basePath, "utf8");
+    // const openapi = YAML.parse(baseFile);
+    //
+    // const featuresDir = join(__dirname, "features");
+
+    const basePath = join(__dirname, "..", "src", "docs", "openapi.base.yaml");
     const baseFile = fs.readFileSync(basePath, "utf8");
     const openapi = YAML.parse(baseFile);
 
-    const featuresDir = join(__dirname, "features");
+    const featuresDir = join(__dirname, "..", "src", "features");
+
 
     openapi.paths = openapi.paths || {};
     openapi.components = openapi.components || {};

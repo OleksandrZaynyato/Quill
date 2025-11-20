@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import User from "../user.model.ts";
+import User from "../user.model.js";
 
 export const addToWhitelist = async (req: Request, res: Response) => {
     const { id } = req.params;

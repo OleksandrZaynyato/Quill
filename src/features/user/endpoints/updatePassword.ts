@@ -1,6 +1,6 @@
 import type{ Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import User from "../user.model.ts";
+import User from "../user.model.js";
 
 export const updatePassword = async (req: Request, res: Response) => {
     try {
