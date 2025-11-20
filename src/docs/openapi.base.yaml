@@ -11,7 +11,7 @@ servers:
         default: localhost:5000
         enum:
           - localhost:5000
-          - https://quill-zb7e.onrender.com
+          - quill-zb7e.onrender.com
 
 
 paths: {}        # will be merged
