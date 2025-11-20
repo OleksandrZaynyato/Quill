@@ -1,9 +1,9 @@
 import type {Request, Response} from "express";
 import mongoose, {HydratedDocument} from "mongoose";
-import Book from "../../book/book.model";
-import type {BookType} from "../book.types";
-import {getPagination, sendPaginated} from "../../../utils/pagination";
-import {embed} from "../../../utils/embed";
+import Book from "../../book/book.model.js";
+import type {BookType} from "../book.types.js";
+import {getPagination, sendPaginated} from "../../../utils/pagination.js";
+import {embed} from "../../../utils/embed.js";
 
 export const searchBooks = async (req: Request, res: Response) => {
     const {page, limit, skip} = getPagination(req.query.page);

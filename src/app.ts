@@ -1,13 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import bookRoutes from "./features/book/book.routes";
-import authRoutes from "./features/auth/auth.routes";
+import bookRoutes from "./features/book/book.routes.js";
+import authRoutes from "./features/auth/auth.routes.js";
 import type { Request, Response, NextFunction } from 'express';
-import {swaggerDocs} from "./swagger";
+import {swaggerDocs} from "./swagger.js";
 import cookieParser from "cookie-parser";
-import passport from "./middlewares/passport";
-import { initPassport } from "./middlewares/passport";
-import userRoutes from "./features/user/user.routes";
+import passport from "./middlewares/passport.js";
+import { initPassport } from "./middlewares/passport.js";
+import userRoutes from "./features/user/user.routes.js";
 
 const app = express();
 

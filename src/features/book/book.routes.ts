@@ -1,11 +1,11 @@
 import {Router} from "express";
-import passport from "../../middlewares/passport";
-import {validate} from "../../middlewares/validate";
-import {searchSchema} from "./validators/search.validator";
-import asyncHandler from "../../middlewares/asyncHandler";
-import {searchBooks} from "./endpoints/search";
-import {getById} from "./endpoints/findById";
-import {idSchema} from "../../validators/common/id.validator";
+import passport from "../../middlewares/passport.js";
+import {validate} from "../../middlewares/validate.js";
+import {searchSchema} from "./validators/search.validator.js";
+import asyncHandler from "../../middlewares/asyncHandler.js";
+import {searchBooks} from "./endpoints/search.js";
+import {getById} from "./endpoints/findById.js";
+import {idSchema} from "../../validators/common/id.validator.js";
 
 const bookRoutes = Router();
 bookRoutes.get('/search',

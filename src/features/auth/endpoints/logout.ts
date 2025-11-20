@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import User from "../../user/user.model";
+import User from "../../user/user.model.js";
 
 export const logout = async (req: Request, res: Response) => {
     const refreshToken = req.cookies.refreshToken;

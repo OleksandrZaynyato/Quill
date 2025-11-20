@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import User from "../user.model";
+import User from "../user.model.js";
 
 export const updateEmail = async (req: Request, res: Response) => {
     try {

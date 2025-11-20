@@ -1,6 +1,6 @@
 // features/user/validators.ts
-import { validate } from "../../../middlewares/validate";
-import { idSchema } from "../../../validators/common/id.validator";
+import { validate } from "../../../middlewares/validate.js";
+import { idSchema } from "../../../validators/common/id.validator.js";
 import * as yup from "yup";
 
 const emailSchema = yup.object({

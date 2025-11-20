@@ -1,4 +1,4 @@
-export { login } from "./login";
-export { register } from "./register";
-export { logout } from "./logout";
-export { refresh } from "./refresh";
+export { login } from "./login.js";
+export { register } from "./register.js";
+export { logout } from "./logout.js";
+export { refresh } from "./refresh.js";

@@ -1,7 +1,7 @@
 import {Router} from "express";
-import passport from "../../middlewares/passport"
-import {authOwnerOrAdmin} from "../../middlewares/authOwnerOrAdmin";
-import asyncHandler from "../../middlewares/asyncHandler";
+import passport from "../../middlewares/passport.js"
+import {authOwnerOrAdmin} from "../../middlewares/authOwnerOrAdmin.js";
+import asyncHandler from "../../middlewares/asyncHandler.js";
 import {
     addToReadList,
     addToWhitelist,
@@ -13,12 +13,12 @@ import {
     updateEmail,
     updatePassword,
     updateProfile
-} from "./endpoints/index";
-import { validateUpdateEmail, validateUpdatePassword, validateUpdateProfile, validateDeleteUser } from "./validators/user.validators";
-import {authAdmin} from "../../middlewares/authAdmin";
-import {getAllSchema} from "./validators/getAll.validator";
-import {validate} from "../../middlewares/validate";
-import {addToListSchema, removeFromListSchema} from "./validators/lists.validator";
+} from "./endpoints/index.js";
+import { validateUpdateEmail, validateUpdatePassword, validateUpdateProfile, validateDeleteUser } from "./validators/user.validators.js";
+import {authAdmin} from "../../middlewares/authAdmin.js";
+import {getAllSchema} from "./validators/getAll.validator.js";
+import {validate} from "../../middlewares/validate.js";
+import {addToListSchema, removeFromListSchema} from "./validators/lists.validator.js";
 
 const userRoutes = Router();
 

@@ -1,12 +1,12 @@
-export {getAll} from "./getAll";
-export {getProfile} from "./getProfile";
-export {deleteUser} from "./deleteUser";
-export {updateEmail} from "./updateEmail";
-export {updatePassword} from "./updatePassword";
-export {updateProfile} from "./updateProfile";
+export {getAll} from "./getAll.js";
+export {getProfile} from "./getProfile.js";
+export {deleteUser} from "./deleteUser.js";
+export {updateEmail} from "./updateEmail.js";
+export {updatePassword} from "./updatePassword.js";
+export {updateProfile} from "./updateProfile.js";
 export {
     addToWhitelist,
     removeFromWhitelist,
     addToReadList,
     removeFromReadList
-} from "./userLists";
+} from "./userLists.js";
