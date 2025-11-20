@@ -9,10 +9,27 @@ export const searchBooks = async (req: Request, res: Response) => {
     const {page, limit, skip} = getPagination(req.query.page);
     const searchValue = req.query.searchValue as string | undefined;
     const category = req.query.category as string | undefined;
-    let whitelist: string[] = [];
+    let whitelist: mongoose.Types.ObjectId[] = [];
 
-    if (req.user) whitelist = req.user.whitelist ?? [];
-    if (req.body?.whitelist) whitelist = req.body.whitelist;
+    if (req.user?.whitelist?.length) whitelist = [...req.user.whitelist];
+
+    if (req.body?.whitelist?.length) {
+        const bodyIds: mongoose.Types.ObjectId[] = (req.body?.whitelist || []).map(
+            (id: string | mongoose.Types.ObjectId) =>
+                typeof id === "string" ? new mongoose.Types.ObjectId(id) : id
+        );
+
+        whitelist = Array.from(new Set([...whitelist, ...bodyIds].map(id => id.toString()))).map(
+            idStr => new mongoose.Types.ObjectId(idStr)
+        );
+    }
+
+
+    console.log("whitelist before IDs:", whitelist);
+
+
+    console.log("Whitelist IDs:", whitelist);
+    // console.log("Search params:", {searchValue, category, page, limit, whitelistLength: whitelist.length, user: req.user, body: req.body});
 
     if (!searchValue && !category) {
         const docs = await Book.find({}, {embedding: 0}).skip(skip).limit(limit);
@@ -29,9 +46,13 @@ export const searchBooks = async (req: Request, res: Response) => {
     // Keyword search by title
     if (searchValue) {
         keywordResults = await Book.find({
-            title: {$regex: searchValue, $options: "i"}
+            title: {$regex: searchValue, $options: "i"},
+            _id: {
+                $nin: whitelist
+            }
         }).limit(50).select("-embedding");
     }
+    console.log(`Vector results: ${vectorResults.length}, Keyword results length: ${keywordResults.length}, Keyword results: ${keywordResults}`);
 
     // Merge results
     let results: HydratedDocument<BookType>[] = [];
@@ -55,12 +76,12 @@ export const searchBooks = async (req: Request, res: Response) => {
 
 export const vectorSearch = async (
     stringToSearch: string,
-    whitelist: string[] = [],
+    whitelist: mongoose.Types.ObjectId[] = [],
     numCandidates: number = 1000,
     limit: number = 50
 ): Promise<HydratedDocument<BookType>[]> => {
     const queryVector = await embed(stringToSearch);
-    // console.log("queryVector length:", queryVector?.length);
+    // console.log("whiteList:", whitelist);
 
     const vectorResults = await Book.aggregate([
         {
@@ -73,11 +94,19 @@ export const vectorSearch = async (
             }
         },
         {$project: {embedding: 0}},
-        {
-            $match: {
-                _id: {$nin: whitelist.map(id => new mongoose.Types.ObjectId(id))}
-            }
-        }
+        ...(whitelist.length > 0
+            ? [
+                {
+                    $match: {
+                        _id: {
+                            $nin: whitelist.map(id =>
+                                typeof id === "string" ? new mongoose.Types.ObjectId(id) : id
+                            )
+                        }
+                    }
+                }
+            ]
+            : [])
     ]) as HydratedDocument<BookType>[];
 
     return vectorResults;

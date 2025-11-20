@@ -8,7 +8,7 @@ declare global {
             email: string;
             username?: string;
             toReadList?: string[];
-            whitelist?: string[];
+            whitelist?: mongoose.Types.ObjectId[];
         }
     }
 }
